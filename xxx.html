@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap By SKILLHUB</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+</head>
+
+<body>
+
+    <div class="d-flex vh-100 justify-content-center align-items-end gap-3 pb-5">
+        <button id="start" type="button" class="btn btn-success">Start Camera</button>
+        <button id="capture" type="button" class="d-none btn btn-primary">Capture <i class="bi bi-camera"></i></button>
+        <button id="close" type="button" class="d-none btn btn-danger">Close <i class="bi bi-telephone-x"></i></button>
+    </div>
+    <div class="position-absolute top-50 start-50 translate-middle">
+        <video class="d-none" id="player" src="" height="450px" autoplay controls></video>
+    </div>
+
+
+    <script>
+        const startBtn = document.getElementById("start")
+        const captureBtn = document.getElementById("capture")
+        const closeBtn = document.getElementById("close")
+        const playerBtn = document.getElementById("player")
+
+        startBtn.addEventListener("click", async () => {
+            if (navigator.mediaDevices) {
+                const x = await navigator.mediaDevices.getUserMedia({ video: true })
+                playerBtn.srcObject = x
+            } else {
+                console.log("mediaDevices not supported")
+            }
+
+            playerBtn.classList.remove("d-none")
+            captureBtn.classList.remove("d-none")
+            closeBtn.classList.remove("d-none")
+            startBtn.classList.add("d-none")
+
+        })
+        captureBtn.addEventListener("click", () => {
+
+        })
+
+        closeBtn.addEventListener("click", () => {
+            captureBtn.classList.add("d-none")
+            closeBtn.classList.add("d-none")
+            playerBtn.classList.add("d-none")
+            startBtn.classList.remove("d-none")
+
+            const tracks = playerBtn.srcObject.getVideoTracks()
+            for (let i = 0; i < tracks.length; i++) {
+                tracks[i].stop()
+            }
+        })
+
+
+
+
+
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -19,7 +19,8 @@
             <i class="bi bi-telephone-x"></i></button>
     </div>
     <div class=" position-absolute top-50 start-50 translate-middle">
-        <video class="d-none" id="player" src="" height="200" autoplay controls></video>
+        <video class="d-none" id="player" src="" height="450" autoplay controls></video>
+        <div id="loader" class="d-flex align-items-center gap-2"></div>
     </div>
 
 
@@ -29,12 +30,14 @@
         const captureBtn = document.getElementById("capture")
         const closeBtn = document.getElementById("close")
         const player = document.getElementById("player")
-
         startBtn.addEventListener("click", async () => {
             //handleCamera Start
             if (navigator.mediaDevices) {
+                document.getElementById("loader").innerHTML = `<h1 class="red">Loading..........</h1> `
                 const x = await navigator.mediaDevices.getUserMedia({ video: true })
                 player.srcObject = x
+
+                document.getElementById("loader").innerHTML = ""
             } else {
                 console.log("mediaDevices not supported");
             }
