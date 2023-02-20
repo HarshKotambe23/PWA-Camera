@@ -33,11 +33,20 @@
         startBtn.addEventListener("click", async () => {
             //handleCamera Start
             if (navigator.mediaDevices) {
-                document.getElementById("loader").innerHTML = `<h1 class="red">Loading..........</h1> `
-                const x = await navigator.mediaDevices.getUserMedia({ video: true })
+                document.getElementById("loader").innerHTML = `Loading..........<h1 class=" spinner-border text-danger"></h1> `
+                startBtn.setAttribute("disabled", true)
+                const x = await navigator.mediaDevices.getUserMedia({
+                    video: true,
+                    // facingMode: "user"
+                    facingMode: {
+
+                        exact: "environment"
+                    }
+                })
                 player.srcObject = x
 
                 document.getElementById("loader").innerHTML = ""
+                startBtn.removeAttribute("disabled")
             } else {
                 console.log("mediaDevices not supported");
             }
