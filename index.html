@@ -23,7 +23,7 @@
         <div id="loader" class="d-flex align-items-center gap-2"></div>
     </div>
     <div class="position-absolute" style="top:50px;right:50px; ">
-        <button id="switchCamera" type="button" class="btn btn-outline-warning btn-lg"><i
+        <button id="switchCamera" type="button" class="btn btn-outline-info btn-lg"><i
                 class="bi bi-camera2"></i></button>
     </div>
 
@@ -38,9 +38,39 @@
         let mode = "user"
         switchBtn.addEventListener("click", () => {
             mode = "environment"
+
+            const tracks = player.srcObject.getVideoTracks()
+            for (let i = 0; i < tracks.length; i++) {
+                tracks[i].stop()
+            }
         })
 
         startBtn.addEventListener("click", async () => {
+            openCamera()
+            //handleCamera End
+
+            console.log("start button clicked")
+
+            // player.setAttribute("src", "./1.mp4")
+        })
+        captureBtn.addEventListener("click", () => {
+            console.log("capture button clicked")
+        })
+        closeBtn.addEventListener("click", () => {
+            console.log("close button clicked")
+
+            console.log(player.srcObject.getVideoTracks());
+            const tracks = player.srcObject.getVideoTracks()
+            for (let i = 0; i < tracks.length; i++) {
+                tracks[i].stop()
+            }
+
+            captureBtn.classList.add("d-none")
+            closeBtn.classList.add("d-none")
+            startBtn.classList.remove("d-none")
+            player.classList.add("d-none")
+        })
+        const openCamera = async () => {
             //handleCamera Start
             if (navigator.mediaDevices) {
                 document.getElementById("loader").innerHTML = `Loading..........<h1 class=" spinner-border text-danger"></h1> `
@@ -62,35 +92,12 @@
             } else {
                 console.log("mediaDevices not supported");
             }
-
-
-            //handleCamera End
-
-            console.log("start button clicked")
             captureBtn.classList.remove("d-none")
             closeBtn.classList.remove("d-none")
             player.classList.remove("d-none")
             startBtn.classList.add("d-none")
-            // player.setAttribute("src", "./1.mp4")
-        })
-        captureBtn.addEventListener("click", () => {
-            console.log("capture button clicked")
-        })
-        closeBtn.addEventListener("click", () => {
-            console.log("close button clicked")
 
-            console.log(player.srcObject.getVideoTracks());
-            const tracks = player.srcObject.getVideoTracks()
-            for (let i = 0; i < tracks.length; i++) {
-                tracks[i].stop()
-            }
-
-            captureBtn.classList.add("d-none")
-            closeBtn.classList.add("d-none")
-            startBtn.classList.remove("d-none")
-            player.classList.add("d-none")
-        })
-
+        }
 
 
 
