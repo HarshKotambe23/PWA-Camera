@@ -23,7 +23,7 @@
         <div id="loader" class="d-flex align-items-center gap-2"></div>
     </div>
     <div class="position-absolute" style="top:50px;right:50px; ">
-        <button id="switchCamera" type="button" class="btn btn-outline-info btn-lg"><i
+        <button id="switchCamera" type="button" class="btn btn-outline-info btn-lg d-none"><i
                 class="bi bi-camera2"></i></button>
     </div>
 
@@ -37,12 +37,13 @@
 
         let mode = "user"
         switchBtn.addEventListener("click", () => {
-            mode = "environment"
-
+            mode = mode === "environment" ? "user" : "environment"
+            player.classList.add("d-none")
             const tracks = player.srcObject.getVideoTracks()
             for (let i = 0; i < tracks.length; i++) {
                 tracks[i].stop()
             }
+            openCamera()
         })
 
         startBtn.addEventListener("click", async () => {
@@ -50,7 +51,7 @@
             //handleCamera End
 
             console.log("start button clicked")
-
+            switchBtn.classList.remove("d-none")
             // player.setAttribute("src", "./1.mp4")
         })
         captureBtn.addEventListener("click", () => {
@@ -69,11 +70,12 @@
             closeBtn.classList.add("d-none")
             startBtn.classList.remove("d-none")
             player.classList.add("d-none")
+            switchBtn.classList.add("d-none")
         })
         const openCamera = async () => {
             //handleCamera Start
             if (navigator.mediaDevices) {
-                document.getElementById("loader").innerHTML = `Loading..........<h1 class=" spinner-border text-danger"></h1> `
+                document.getElementById("loader").innerHTML = `Loading......<h1 class=" spinner-border text-danger"></h1> `
                 startBtn.setAttribute("disabled", true)
                 try {
                     const x = await navigator.mediaDevices.getUserMedia({
