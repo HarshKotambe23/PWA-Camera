@@ -1,4 +1,12 @@
-import { canvas, captureBtn, closeBtn, getMode, player, restartBtn, startBtn, switchBtn, changeMode } from "./constants.js"
+import { canvas, captureBtn, closeBtn, player, restartBtn, startBtn, switchBtn, changeMode } from "./constants.js"
+
+let mode = "user"
+
+export const changeMode = (arg) => {
+
+    mode = mode === "user" ? "environment" : "user"
+
+}
 
 export const closeCamera = () => {
     const tracks = player.srcObject.getVideoTracks()
@@ -23,8 +31,8 @@ export const openCamera = async () => {
         try {
             const x = await navigator.mediaDevices.getUserMedia({
                 video: {
-                    facingMode: getMode()
-                    // facingMode: "user"
+                    facingMode: mode
+
                 }
             })
             player.srcObject = x

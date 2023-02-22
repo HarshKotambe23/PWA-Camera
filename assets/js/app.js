@@ -7,11 +7,11 @@ import {
     switchBtn,
     canvas,
     restartBtn,
-    changeMode,
+
 
     // mode
 } from "./constants.js"
-import { openCamera, closeCamera } from "./camera.js"
+import { openCamera, closeCamera, changeMode } from "./camera.js"
 
 
 switchBtn.addEventListener("click", () => {
