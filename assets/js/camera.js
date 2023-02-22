@@ -1,4 +1,4 @@
-import { canvas, captureBtn, closeBtn, player, restartBtn, startBtn, switchBtn, changeMode } from "./constants.js"
+import { canvas, captureBtn, closeBtn, player, restartBtn, startBtn, switchBtn } from "./constants.js"
 
 let mode = "user"
 
