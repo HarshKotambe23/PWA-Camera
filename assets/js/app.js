@@ -8,7 +8,7 @@ import {
     canvas,
     restartBtn,
     changeMode,
-    getMode
+
     // mode
 } from "./constants.js"
 import { openCamera, closeCamera } from "./camera.js"
